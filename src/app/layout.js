@@ -1,4 +1,4 @@
-import { AddFormProvider } from "../contexts/AddFormContext";
+import { ConotextProvider } from "@/contexts/ContextProviders";
 import "./globals.css";
 
 import { Header } from "@/components/layout/Header";
@@ -15,7 +15,7 @@ export default function RootLayout({ children }) {
         className={`max-w-6xl mx-auto bg-linear-to-r from-indigo-600 to-purple-700`}
       >
         <Header />
-        <AddFormProvider>{children}</AddFormProvider>
+        <ConotextProvider>{children}</ConotextProvider>{" "}
       </body>
     </html>
   );
