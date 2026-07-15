@@ -1,6 +1,7 @@
 "use client";
 import { useAddForm } from "@/hooks/useAddForm";
 import { Button } from "./Buttotn";
+import { useTodos } from "@/hooks/useTodos";
 
 export const AddNewForm = ({ onClick }) => {
   const { formData, setFormData } = useAddForm();
@@ -8,10 +9,12 @@ export const AddNewForm = ({ onClick }) => {
     const { name, value } = e.target;
     setFormData((prev) => ({ ...prev, [name]: value }));
   };
-
-  const handelSubmit = () => {
+  const { addTodo, todos } = useTodos();
+  const handelSubmit = (e) => {
+    e.preventDefault();
     onClick();
-    console.log(formData);
+    addTodo(formData);
+    console.log("form add new form : ", todos);
   };
   // const {showForm,setShowForm} =
   const priorites = [
@@ -128,12 +131,14 @@ export const AddNewForm = ({ onClick }) => {
 
       {/* date */}
       <div className="my-2">
-        <label htmlFor="date" className="block mb-2 font-bold text-gray-800">
+        <label htmlFor="dueDate" className="block mb-2 font-bold text-gray-800">
           Date
         </label>
         <input
           type="date"
-          value={formData.category}
+          name="dueDate"
+          id="dueDate"
+          value={formData.dueDate}
           onChange={handelChange}
           className="border-2 border-gray-400 py-3 w-full my-1 rounded-xl px-3 focus:border-indigo-700 outline-none duration-300"
         />

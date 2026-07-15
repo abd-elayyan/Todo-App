@@ -2,10 +2,12 @@
 import { AddNewForm } from "@/components/ui/AddNewForm";
 import { Button } from "@/components/ui/Buttotn";
 import EmptyMsg from "@/components/ui/EmptyMsg";
+import { useTodos } from "@/hooks/useTodos";
 import { useState } from "react";
 
 const todo = () => {
   const [showForm, setShowForm] = useState(false);
+  const { todos } = useTodos();
 
   return (
     <div>
@@ -35,14 +37,19 @@ const todo = () => {
         </div>
       )}
       {/* Show todos section */}
+
       <div>
-        <EmptyMsg
-          title={"No tasks yet"}
-          subtitle={
-            "Create your fist task to get started with organizing your work"
-          }
-          icon={"📄"}
-        />
+        {todos.length > 0 ? (
+          console.log(todos)
+        ) : (
+          <EmptyMsg
+            title={"No tasks yet"}
+            subtitle={
+              "Create your fist task to get started with organizing your work"
+            }
+            icon={"📄"}
+          />
+        )}
       </div>
     </div>
   );
