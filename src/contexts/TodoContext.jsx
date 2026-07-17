@@ -15,13 +15,33 @@ export const TodoProvider = ({ children }) => {
       category: todo.category,
       dueDate: todo.dueDate,
       completed: false,
-      createdAt: Date.now().toString,
-      updatedAt: Date.now().toString,
+      createdAt: Date.now().toString(),
+      updatedAt: Date.now().toString(),
     };
     setTodos((prev) => [...prev, newTodo]);
   };
+
+  // is completed ?
+  const ToggelTodo = (id) => {
+    setTodos((prev) =>
+      prev.map((todo) =>
+        todo.id === id
+          ? {
+              ...todo,
+              completed: !todo.completed,
+              updatedAt: new Date().toString(),
+            }
+          : todo,
+      ),
+    );
+  };
+
+  const deleteTodo = (id) => {
+    setTodos((prev) => prev.filter((todo) => todo.id !== id));
+  };
+
   return (
-    <TodoContext.Provider value={{ todos, addTodo }}>
+    <TodoContext.Provider value={{ todos, addTodo, ToggelTodo, deleteTodo }}>
       {children}
     </TodoContext.Provider>
   );
