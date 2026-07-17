@@ -2,10 +2,11 @@
 import { AddNewForm } from "@/components/ui/AddNewForm";
 import { Button } from "@/components/ui/Buttotn";
 import EmptyMsg from "@/components/ui/EmptyMsg";
+import { TodoItems } from "@/components/ui/TodoItems";
 import { useTodos } from "@/hooks/useTodos";
 import { useState } from "react";
 
-const todo = () => {
+const TodoPage = () => {
   const [showForm, setShowForm] = useState(false);
   const { todos } = useTodos();
 
@@ -40,7 +41,7 @@ const todo = () => {
 
       <div>
         {todos.length > 0 ? (
-          console.log(todos)
+          todos.map((todo) => <TodoItems todo={todo} key={todo.id} />)
         ) : (
           <EmptyMsg
             title={"No tasks yet"}
@@ -48,10 +49,11 @@ const todo = () => {
               "Create your fist task to get started with organizing your work"
             }
             icon={"📄"}
+            onClick={() => setShowForm(true)}
           />
         )}
       </div>
     </div>
   );
 };
-export default todo;
+export default TodoPage;

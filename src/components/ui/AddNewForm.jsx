@@ -24,9 +24,9 @@ export const AddNewForm = ({ onClick }) => {
   ];
 
   const categories = [
-    { label: "Work", value: "Work" },
-    { label: "Personal", value: "Personal" },
-    { label: "General", value: "General" },
+    { label: "Work", value: "work" },
+    { label: "Personal", value: "personal" },
+    { label: "General", value: "general" },
   ];
 
   return (
@@ -55,22 +55,26 @@ export const AddNewForm = ({ onClick }) => {
           required
           value={formData.title}
           onChange={handelChange}
-          className="py-3 w-full rounded-xl focus:outline-none  focus:border-indigo-600 border-2 border-gray-400  placeholder:text-gray-500 duration-300 placeholder:text-lg placeholder:px-2"
+          className="py-3 w-full rounded-xl focus:outline-none  focus:border-indigo-600 border-2 border-gray-400  placeholder:text-gray-500 duration-300 placeholder:text-lg placeholder:px-2 "
         />
       </div>
 
       {/* task discription  */}
       <div className="my-4">
-        <label htmlFor="title" className="block mb-2 font-bold text-gray-800">
+        <label
+          htmlFor="description"
+          className="block mb-2 font-bold text-gray-800"
+        >
           Task Description
         </label>
         <textarea
+          required
           rows={3}
           value={formData.description}
           onChange={handelChange}
-          name="title"
-          id="title"
-          placeholder="Enter Task Title"
+          name="description"
+          id="description"
+          placeholder="Enter Task description"
           className="py-3 w-full rounded-xl focus:outline-none  focus:border-indigo-600 border-2 border-gray-400  placeholder:text-gray-500 placeholder:text-lg placeholder:px-2 duration-300"
         />
       </div>
@@ -140,7 +144,7 @@ export const AddNewForm = ({ onClick }) => {
           id="dueDate"
           value={formData.dueDate}
           onChange={handelChange}
-          className="border-2 border-gray-400 py-3 w-full my-1 rounded-xl px-3 focus:border-indigo-700 outline-none duration-300"
+          className="border-2 border-gray-400 py-3 w-full my-1 text-gray-400 rounded-xl px-3 focus:border-indigo-700 outline-none duration-300"
         />
       </div>
 
