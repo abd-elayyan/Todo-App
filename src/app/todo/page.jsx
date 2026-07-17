@@ -2,14 +2,47 @@
 import { AddNewForm } from "@/components/ui/AddNewForm";
 import { Button } from "@/components/ui/Buttotn";
 import EmptyMsg from "@/components/ui/EmptyMsg";
+import { SearchBar } from "@/components/ui/SearchBar";
 import { TodoItems } from "@/components/ui/TodoItems";
 import { useTodos } from "@/hooks/useTodos";
 import { useState } from "react";
 
 const TodoPage = () => {
   const [showForm, setShowForm] = useState(false);
-  const { todos } = useTodos();
+  const { todos, filter, searchQuery, sortBy, setSortBy } = useTodos();
 
+  let visibleTodos = todos;
+  /////////////////search
+  if (searchQuery)
+    visibleTodos = visibleTodos.filter((t) =>
+      t.title.toLowerCase().includes(searchQuery.toLowerCase()),
+    );
+
+  /////////////////filter
+  {
+    if (filter && filter === "completed")
+      visibleTodos = visibleTodos.filter((f) => f.completed);
+    else if (filter && filter === "active")
+      visibleTodos = visibleTodos.filter((f) => !f.completed);
+  }
+
+  /////////////////sort by
+  {
+    if (sortBy && sortBy === "created") {
+      visibleTodos = [...visibleTodos].sort((a, b) => {
+        return new Date(a.createdAt) - new Date(b.createdAt);
+      });
+    } else if (sortBy && sortBy === "title") {
+      visibleTodos = [...visibleTodos].sort((a, b) => {
+        return a.title.localeCompare(b.title);
+      });
+    } else if (sortBy && sortBy === "priority") {
+      visibleTodos = [...visibleTodos].sort((a, b) => {
+        const order = { high: 1, mediom: 2, low: 3 };
+        return order[a.priority] - order[b.priority];
+      });
+    }
+  }
   return (
     <div>
       {/* head section  */}
@@ -37,20 +70,16 @@ const TodoPage = () => {
           <AddNewForm onClick={() => setShowForm(false)} />
         </div>
       )}
-      {/* Show todos section */}
 
+      {/* search bar  */}
+      <SearchBar />
+
+      {/* Show todos section */}
       <div>
-        {todos.length > 0 ? (
-          todos.map((todo) => <TodoItems todo={todo} key={todo.id} />)
+        {visibleTodos.length > 0 ? (
+          visibleTodos.map((todo) => <TodoItems todo={todo} key={todo.id} />)
         ) : (
-          <EmptyMsg
-            title={"No tasks yet"}
-            subtitle={
-              "Create your fist task to get started with organizing your work"
-            }
-            icon={"📄"}
-            onClick={() => setShowForm(true)}
-          />
+          <EmptyMsg filter={filter} onClick={() => setShowForm(true)} />
         )}
       </div>
     </div>

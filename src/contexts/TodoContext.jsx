@@ -6,6 +6,10 @@ export const TodoContext = createContext();
 
 export const TodoProvider = ({ children }) => {
   const [todos, setTodos] = useState([]);
+  const [filter, setFilter] = useState("All");
+  const [searchQuery, setSearchQuery] = useState("");
+  const [sortBy, setSortBy] = useState("created");
+
   const addTodo = (todo) => {
     const newTodo = {
       id: Date.now().toString(),
@@ -40,8 +44,28 @@ export const TodoProvider = ({ children }) => {
     setTodos((prev) => prev.filter((todo) => todo.id !== id));
   };
 
+  const state = {
+    total: todos.length,
+    completed: todos.filter((t) => t.completed).length,
+    active: todos.filter((t) => !t.completed).length,
+  };
+
   return (
-    <TodoContext.Provider value={{ todos, addTodo, ToggelTodo, deleteTodo }}>
+    <TodoContext.Provider
+      value={{
+        todos,
+        addTodo,
+        ToggelTodo,
+        deleteTodo,
+        filter,
+        setFilter,
+        state,
+        searchQuery,
+        setSearchQuery,
+        sortBy,
+        setSortBy,
+      }}
+    >
       {children}
     </TodoContext.Provider>
   );
