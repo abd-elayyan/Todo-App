@@ -5,7 +5,11 @@ export const SearchBar = () => {
     useTodos();
   const filters = [
     { count: state.total, label: "All Tasks", value: "all" },
-    { count: state.completed, label: "Completed", value: "completed" },
+    {
+      count: state.completed,
+      label: "Completed",
+      value: "completed",
+    },
     { count: state.active, label: "Active", value: "active" },
   ];
 
@@ -37,6 +41,7 @@ export const SearchBar = () => {
               <button
                 key={f.value}
                 value={f.value}
+                selected={f.selected}
                 onClick={() => setFilter(f.value)}
                 className={` px-3 py-2 rounded-lg  font-bold text-sm text-gray-500  cursor-pointer w-full hover:-translate-y-1 duration-300 ${filter === f.value ? "bg-linear-to-r from-indigo-600 to-purple-600 text-white/90" : " hover:bg-indigo-100 hover:text-indigo-500 "}`}
               >
@@ -69,6 +74,14 @@ export const SearchBar = () => {
                 </option>
               ))}
           </select>
+        </div>
+      </div>
+
+      <div className="flex my-3">
+        <p className="text-lg font-bold text-gray-700 mr-3">Active Filter :</p>
+        <div className="flex py-1 px-3 bg-emerald-300 rounded-full">
+          <div className="mr-1">filter :</div>
+          <div> {filter}</div>
         </div>
       </div>
     </div>

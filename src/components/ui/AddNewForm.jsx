@@ -14,7 +14,6 @@ export const AddNewForm = ({ onClick }) => {
     e.preventDefault();
     onClick();
     addTodo(formData);
-    console.log("form add new form : ", todos);
   };
   // const {showForm,setShowForm} =
   const priorites = [

@@ -6,9 +6,10 @@ export const TodoContext = createContext();
 
 export const TodoProvider = ({ children }) => {
   const [todos, setTodos] = useState([]);
-  const [filter, setFilter] = useState("All");
+  const [filter, setFilter] = useState("all");
   const [searchQuery, setSearchQuery] = useState("");
   const [sortBy, setSortBy] = useState("created");
+  const [showForm, setShowForm] = useState(false);
 
   const addTodo = (todo) => {
     const newTodo = {
@@ -64,6 +65,8 @@ export const TodoProvider = ({ children }) => {
         setSearchQuery,
         sortBy,
         setSortBy,
+        showForm,
+        setShowForm,
       }}
     >
       {children}
